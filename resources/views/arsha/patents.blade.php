@@ -56,12 +56,12 @@
                   @endif
                   <div class="about">
                     <div class="content" style="padding:0; margin-top: 15px">
-                      <a class="btn-learn-more" data-toggle="modal" data-target="#modal_bibtex_{{$p->id}}">{{__('BibTex')}}</a>
+                      <a class="btn-learn-more" data-bs-toggle="modal" data-bs-target="#modal_bibtex_{{$p->id}}">{{__('BibTex')}}</a>
                       @if(isset($patent['url']))
                         <a href="{{$patent['url']}}" class="btn-learn-more" target="_blank">{{__('Link')}}</a>
                       @endif
                       @if($p->file)
-                        <a href="{{asset('storage/'.$p->file)}}" target="_blank" class="btn-learn-more">{{__('File')}}</a>
+                        <a href="{{asset('assets/'.$p->file)}}" target="_blank" class="btn-learn-more">{{__('File')}}</a>
                       @endif
                     </div>
                   </div>
@@ -70,10 +70,13 @@
             </div>
           </li>
           @endif
-          @include('arsha.layouts.modal_bibtex', ['bibtex' => $p->bibtex, 'id' => $p->id])
         @endforeach
       </ul>
     </div>
 
   </div>
+
+@foreach($patents as $p)
+  @include('arsha.layouts.modal_bibtex', ['bibtex' => $p->bibtex, 'id' => $p->id])
+@endforeach
 </section>

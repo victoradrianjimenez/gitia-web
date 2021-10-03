@@ -10,11 +10,12 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="{{asset('storage/'.$config->favicon)}}" rel="icon">
-  <link href="{{asset('storage/'.$config->favicon)}}" rel="apple-touch-icon">
+  <link href="{{asset('assets/'.$config->favicon)}}" rel="icon">
+  <link href="{{asset('assets/'.$config->favicon)}}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="{{asset('arsha/css/fonts.min.css')}}" rel="stylesheet">
+  <link href="{{asset('arsha/css/fonts-gitia.css')}}" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="{{asset('arsha/vendor/aos/aos.css')}}" rel="stylesheet">
@@ -29,6 +30,7 @@
   <!-- Template Main CSS File -->
   <link href="{{asset('arsha/css/style.css')}}" rel="stylesheet">
   <link href="{{asset('arsha/css/app.css')}}" rel="stylesheet">
+  <link href="{{asset('arsha/css/gitia.css')}}" rel="stylesheet">
 
   @stack('styles')
 
@@ -47,7 +49,7 @@
 
       <h1 class="logo me-auto">
         <a href="{{url('')}}">
-          <img src="{{asset('storage/'.$config->logo_color_large)}}" title="{{$config->short_name}}" alt="{{$config->short_name}}">
+          <img src="{{asset('assets/'.$config->logo_color_large)}}" title="{{$config->short_name}}" alt="{{$config->short_name}}">
         </a>
       </h1>
       

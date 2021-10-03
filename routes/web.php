@@ -13,6 +13,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AssetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,9 +91,15 @@ Route::resource('admin/partners', PartnerController::class)
 Route::resource('admin/sections', SectionController::class)
     ->except('show')
     ->middleware(['auth']);
+Route::resource('admin/assets', AssetController::class)
+    ->except('show','create','edit')
+    ->middleware(['auth']);
 Route::resource('admin/users', UserController::class)
     ->except('show','create','store')
     ->middleware(['auth']);
+
+Route::post('admin/publications/search', [PublicationController::class, 'search'])
+    ->name('publications_search');
 
 Route::get('{url}', [PageController::class, 'page'])
     ->name('page');

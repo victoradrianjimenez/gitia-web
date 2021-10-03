@@ -32,14 +32,14 @@
                   @endif
                   <div class="about">
                     <div class="content" style="padding:0; margin-top: 15px">
-                      <a class="btn-learn-more" data-toggle="modal" data-target="#modal_bibtex">
+                      <button type="button" class="btn-learn-more" data-bs-toggle="modal" data-bs-target="#modal_bibtex_{{$publication->id}}">
                         {{__('BibTex')}}
-                      </a>
+                      </button>
                       @if(isset($p['url']))
                         <a href="{{$p['url']}}" class="btn-learn-more" target="_blank">{{__('Link')}}</a>
                       @endif
                       @if($publication->file)
-                        <a href="{{asset('storage/'.$publication->file)}}" target="_blank" class="btn-learn-more">
+                        <a href="{{asset('assets/'.$publication->file)}}" target="_blank" class="btn-learn-more">
                           {{__('File')}}
                         </a>
                       @endif

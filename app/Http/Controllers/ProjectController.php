@@ -17,7 +17,7 @@ class ProjectController extends Controller{
         return [
             'type' => 'required|alpha_dash',
             'title' => ['required','string',Rule::unique('projects')->ignore($id)],
-            'logo' => 'string|required_without:file_logo',
+            'logo' => 'required_without:file_logo',
             'file_logo' => 'file|required_without:logo',
             'institution' => 'nullable|string',
             'code' => 'nullable|string',
@@ -28,6 +28,8 @@ class ProjectController extends Controller{
             'classes.*' => 'required|alpha_dash',
             'participants' => 'required|array',
             'participants.*' => 'required|string',
+            'publications' => 'array',
+            'publications.*' => 'required|integer',
             'partners' => 'array',
             'partners.*' => 'required|integer',
             'descriptions' => 'required|array',
@@ -85,6 +87,7 @@ class ProjectController extends Controller{
         $project->participants = implode('|',$request->participants);
         $project->save();
         $project->partners()->sync($request->partners);
+        $project->publications()->sync($request->publications);
         foreach($request->descriptions as $r){
             $project->descriptions()->save(new ProjectDescription($r));
         }
@@ -127,6 +130,7 @@ class ProjectController extends Controller{
         $project->save();
         $project->partners()->sync($request->partners);
         $project->descriptions()->delete();
+        $project->publications()->sync($request->publications);
         foreach($request->descriptions as $r){
             $project->descriptions()->save(new ProjectDescription($r));
         }
@@ -142,6 +146,7 @@ class ProjectController extends Controller{
     public function destroy(Project $project){
         Storage::disk('public')->delete($project->logo);
         $project->descriptions()->delete();
+        $project->publications()->sync([]);
         $project->partners()->sync([]);
         $project->delete();
         return ['status' => 'OK', 'message' => 'The record was successfully deleted.'];

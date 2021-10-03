@@ -9,7 +9,7 @@
       <div class="col-lg-4 order-lg-2">
         <div class="portfolio-info box-featured">
           <div class="d-flex justify-content-center">
-            <img src="{{asset('storage/'.$development->logo)}}" height="150">
+            <img src="{{asset('assets/'.$development->logo)}}" height="150">
           </div>
         </div>
         <br>
@@ -41,18 +41,53 @@
           <h2>{{$description->title}}</h2>
         </div>
         <div class="portfolio-description content-align-justify">
-          <h2 id="short-bio">{{__('Description')}}</h2>
+          {{--<h2 id="short-bio">{{__('Description')}}</h2>--}}
           <div>{!!$description->text!!}</div>
           <span class="border-separator"></span>
-          <h2 id="selected-publications">{{__('Partners')}}</h2>
+          @php
+            $n_patents = 0;
+            $n_publications = 0;
+            foreach($development->publications as $p){
+              if(strtolower($p->type) == 'patent')
+                $n_patents++;
+              else
+                $n_publications++;
+            }
+          @endphp
+          @if($n_patents)
+            <h2>{{__('Patent Applications')}}</h2>
+            <ul>
+              @foreach($development->publications as $p)
+                @if(strtolower($p->type) == 'patent')
+                  <li>{!!$p->citation!!}</li>
+                    <a href="{{route('publication', $p->url)}}">{{__('Read More')}}...</a>
+                  </li>
+                @endif
+              @endforeach
+            </ul>
+          @endif
+          @if($n_publications)
+            <h2>{{__('Publications')}}</h2>
+            <ul>
+              @foreach($development->publications as $p)
+                @if(strtolower($p->type) != 'patent')
+                  <li>{!!$p->citation!!}</li>
+                    <a href="{{route('publication', $p->url)}}">{{__('Read More')}}...</a>
+                  </li>
+                @endif
+              @endforeach
+            </ul>
+          @endif
+          <span class="border-separator"></span>
         </div>
+        <h2>{{__('Partners')}}</h2>
         <div class="services section-bg">
           <div class="row">
             @foreach($development->partners as $p)
             <div class="col-xl-3 col-md-3 align0items-stretch">
               <div class="icon-box box-featured">
                 <div class="icon">
-                  <img src="{{asset('storage/'.$p->logo)}}" height="40">
+                  <img src="{{asset('assets/'.$p->logo)}}" height="40">
                 </div>
                 <h4>
                   <a href="{{$p->link}}" target="_blank" title="{{$p->fullname}}">{{$p->name}}</a>
